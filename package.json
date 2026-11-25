@@ -1,0 +1,19 @@
+{
+  "name": "greenlight-pay-sandbox",
+  "version": "0.1.1",
+  "private": true,
+  "type": "module",
+  "description": "Playable, phone-first Green Light Pay sandbox with a separate developer control plane.",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "scripts": {
+    "start": "node src/server.mjs",
+    "dev": "node --watch src/server.mjs",
+    "test": "node --test",
+    "reset": "node src/reset.mjs"
+  },
+  "dependencies": {
+    "qrcode": "^1.5.4"
+  }
+}

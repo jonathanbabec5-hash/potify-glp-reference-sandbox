@@ -1,0 +1,7 @@
+{
+  "project": "Green Light Pay · July Reference Sandbox",
+  "kind": "Historical runnable sandbox",
+  "source": "Green_Light_Pay_Sandbox_v0.1.1_2026-07-20.zip. The July 22 continuation handoff explicitly isolates this version as a historical reference. Only code, fictional fixtures, tests and dependency files are included.",
+  "scope": "The July 22 controlling handoff labels this code non-canonical reference only. It is a separate archival repo, with no claim of current Replit backend parity.",
+  "prepared": "2026-11-25"
+}

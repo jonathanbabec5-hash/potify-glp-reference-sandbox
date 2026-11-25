@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#050806">
+  <meta name="color-scheme" content="dark">
+  <meta name="robots" content="noindex,nofollow">
+  <title>GLP_DEV — Green Light Pay Sandbox Console</title>
+  <link rel="stylesheet" href="/developer.css">
+</head>
+<body>
+  <a class="skip-link" href="#terminal-input">Skip to command line</a>
+  <header class="dev-header">
+    <a class="dev-brand" href="/developer" aria-label="Green Light Pay developer console home">
+      <span>&gt;_</span>
+      <div><small>POTIFY // GREEN LIGHT PAY</small><strong>GLP_DEV <em>v0.1.1</em></strong></div>
+    </a>
+    <nav>
+      <span class="environment"><i></i> SANDBOX / NO LIVE FUNDS</span>
+      <a href="/">Launch playable sandbox <b aria-hidden="true">↗</b></a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="dev-intro">
+      <div><p>ENGINEERING + OPERATIONS ROUTE</p><h1>Talk to the machinery.<br><span>Play the product.</span></h1></div>
+      <p>The console exposes the proof, controls, records, and state machine. The main sandbox translates this machinery into a guided counter experience.</p>
+    </section>
+
+    <section class="system-strip" aria-label="System health">
+      <article><span>MODE</span><strong id="sys-mode">BOOTING</strong><small id="sys-version">v—</small></article>
+      <article><span>PARTNERS.APPROVED</span><strong id="sys-partners">—</strong><small>qualification gate</small></article>
+      <article><span>MERCHANTS.ACTIVE</span><strong id="sys-merchants">—</strong><small>counter authority</small></article>
+      <article><span>RUNS.OPEN</span><strong id="sys-open">—</strong><small>controlled state</small></article>
+      <article><span>LEDGER.DIFF</span><strong id="sys-ledger">—</strong><small>must equal $0.00</small></article>
+      <article><span>AUDIT.CHAIN</span><strong id="sys-audit">—</strong><small id="sys-audit-detail">hash linked</small></article>
+    </section>
+
+    <section class="console-grid">
+      <article class="terminal-panel">
+        <div class="panel-bar"><span><i></i><i></i><i></i></span><strong>glp-control-plane — interactive sandbox shell</strong><button id="terminal-clear" type="button">clear</button></div>
+        <div class="terminal-output" id="terminal-output" role="log" aria-live="polite"></div>
+        <form class="terminal-form" id="terminal-form">
+          <label for="terminal-input"><span>glp@sandbox:~$</span><input id="terminal-input" name="command" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="type help" aria-label="Developer console command"></label>
+          <button type="submit">RUN</button>
+        </form>
+      </article>
+
+      <aside class="control-panel">
+        <div class="panel-bar"><strong>merchant.controls</strong><span id="controls-updated">awaiting data</span></div>
+        <form id="controls-form">
+          <label class="pause-control"><span><b>pause_new_requests</b><small>fail closed at the counter</small></span><input id="control-paused" name="paused" type="checkbox" role="switch"></label>
+          <label>per_transaction_limit_usd<input id="control-per-tx" name="perTransaction" type="number" min="1" step="1" required></label>
+          <label>daily_limit_usd<input id="control-daily" name="daily" type="number" min="1" step="1" required></label>
+          <label>required_commitment<select id="control-commitment" name="commitment"><option value="FINALIZED">FINALIZED</option><option value="CONFIRMED">CONFIRMED</option></select></label>
+          <div class="readout"><span>allowlisted_asset</span><code id="control-asset">—</code></div>
+          <div class="readout"><span>destination_wallet</span><code id="control-wallet">—</code></div>
+          <button class="execute-button" type="submit">PATCH /merchant/controls</button>
+        </form>
+      </aside>
+    </section>
+
+    <section class="data-panel runs-panel">
+      <div class="panel-heading">
+        <div><p>PAYMENT STATE MACHINE</p><h2>Sandbox runs</h2></div>
+        <div class="heading-actions"><button id="refresh-data" type="button">↻ refresh</button><a href="/">+ initiate in playable sandbox</a></div>
+      </div>
+      <div class="state-route" aria-label="Controlled state route"><span>CREATE</span><i></i><span>SCREEN</span><i></i><span>SIGN</span><i></i><span>VERIFY</span><i></i><span>RECONCILE</span></div>
+      <div class="runs-table-wrap">
+        <table>
+          <thead><tr><th>reference</th><th>counter</th><th>amount</th><th>state</th><th>evidence</th><th>controlled_command</th></tr></thead>
+          <tbody id="intent-rows"></tbody>
+        </table>
+      </div>
+      <p class="empty" id="intent-empty">No runs recorded. Initiate one in the playable sandbox.</p>
+    </section>
+
+    <section class="records-grid">
+      <article class="data-panel">
+        <div class="panel-heading compact"><div><p>QUALIFICATION REGISTRY</p><h2>Partner + merchant</h2></div></div>
+        <div id="qualification-records" class="qualification-records"></div>
+      </article>
+      <article class="data-panel">
+        <div class="panel-heading compact"><div><p>HASH-LINKED MATERIAL EVENTS</p><h2>Audit tail</h2></div><a href="/api/audit/verify" target="_blank" rel="noopener">verify.json ↗</a></div>
+        <ol id="audit-events" class="audit-events"></ol>
+      </article>
+    </section>
+
+    <section class="data-panel api-panel">
+      <div class="panel-heading"><div><p>SANDBOX CONTRACT</p><h2>API surface</h2></div><span class="truth-tag">real routes · fictional records</span></div>
+      <div class="api-grid">
+        <div><b>GET</b><code>/api/health</code><span>system boundary + integrity</span></div>
+        <div><b>POST</b><code>/api/payment-intents</code><span>idempotent minimum-data request</span></div>
+        <div><b>POST</b><code>/api/payment-intents/:id/screen</code><span>partner decision fixture</span></div>
+        <div><b>GET</b><code>/api/checkout/:id</code><span>token-bound customer handoff</span></div>
+        <div><b>POST</b><code>/api/checkout/:id/authorize</code><span>fictional wallet signature</span></div>
+        <div><b>POST</b><code>/api/payment-intents/:id/verify</code><span>dual-observer comparison</span></div>
+        <div><b>POST</b><code>/api/payment-intents/:id/reconcile</code><span>POS / chain / partner / ledger</span></div>
+        <div><b>GET</b><code>/api/audit/verify</code><span>recalculate event hash chain</span></div>
+      </div>
+    </section>
+  </main>
+
+  <footer><span>GLP_DEV v0.1.1</span><p>Sandboxed orchestration and verification only. No custody, transmission, conversion, settlement, customer PII, real wallet, or live cannabis transaction.</p></footer>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="/developer.js"></script>
+</body>
+</html>

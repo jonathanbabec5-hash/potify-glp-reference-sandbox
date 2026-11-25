@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0a1710">
+  <meta name="color-scheme" content="dark">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Green Light Pay — Customer Sandbox Handoff</title>
+  <link rel="stylesheet" href="/checkout.css">
+</head>
+<body>
+  <div class="ambient" aria-hidden="true"></div>
+  <header>
+    <a href="/" class="checkout-brand" aria-label="Return to Green Light Pay sandbox">
+      <span aria-hidden="true">G</span>
+      <div><small>POTIFY presents</small><strong>Green Light Pay</strong></div>
+    </a>
+    <div class="sandbox-label"><i></i> Simulation · no live funds</div>
+  </header>
+
+  <main>
+    <section class="phone-shell" aria-labelledby="checkout-title">
+      <div class="phone-top"><span>ONE-TIME HANDOFF</span><span id="checkout-clock">—</span></div>
+      <div id="checkout-content" class="checkout-content" aria-live="polite" aria-busy="true">
+        <div class="checkout-loading"><i></i><p>Opening the exact sandbox request…</p></div>
+      </div>
+      <div class="phone-bottom"><i></i></div>
+    </section>
+    <p class="outside-note">This customer surface receives only an opaque request and transaction facts. It never asks for identity, medical details, products, seed phrases, or private keys.</p>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="/checkout.js"></script>
+</body>
+</html>
