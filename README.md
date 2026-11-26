@@ -2,6 +2,14 @@
 
 [Complete repository directory tree](docs/DIRECTORY.md)
 
+## A July checkout you can still put under a microscope
+
+Keeping an old experiment intact lets a new maintainer ask a better question than ‘does this look current?’ They can ask exactly what the July team meant by an intent, a register and a receipt, then decide which assumptions still hold.
+
+In the [core test](test/core.test.mjs), a synthetic checkout starts with 4,250 US cents and an idempotency key. The [sandbox core](src/core.mjs) handles the fixture locally. The July 22 handoff labels this historical reference; it is not the canonical merchant backend.
+
+Trace that $42.50 fictional intent and record what a repeat request should do. Name one assumption you would recheck before reusing the design. No commercial provider, real funds or settlement is implied; Green Light Pay’s finances, contracts and governance are separate.
+
 **Historical runnable sandbox.** Give developers a reproducible baseline for the July merchant checkout experiment.
 
 ### Setup and usage
