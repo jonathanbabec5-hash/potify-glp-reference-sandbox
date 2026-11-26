@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Green Light Pay — Sandbox Operations</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="Green Light Pay home">
+      <span class="brand-mark" aria-hidden="true"><span></span></span>
+      <span><strong>Green Light Pay</strong><small>Sandbox operations</small></span>
+    </a>
+    <div class="mode"><span></span> Sandbox — no live funds</div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <p class="eyebrow">The first working foundation</p>
+        <h1>Qualified partners. Verified transactions. Clear records. Merchant controls.</h1>
+        <p class="lede">A payment experience designed for the reality of state-legal cannabis retail—piece by piece, counter by counter, requirement by requirement.</p>
+      </div>
+      <aside class="boundary">
+        <span class="boundary-label">Operating boundary</span>
+        <strong>Orchestration, not custody.</strong>
+        <p>This build simulates partner screening and chain evidence. It does not move money, approve a provider, or replace merchant and POS compliance.</p>
+      </aside>
+    </section>
+
+    <section class="metrics" aria-label="System summary">
+      <article><span>Approved partners</span><strong id="metric-partners">—</strong><small>Written scope required</small></article>
+      <article><span>Active merchants</span><strong id="metric-merchants">—</strong><small>License + controls required</small></article>
+      <article><span>Open requests</span><strong id="metric-open">—</strong><small>One state-machine path</small></article>
+      <article><span>Ledger difference</span><strong id="metric-ledger">—</strong><small>Must remain $0.00</small></article>
+      <article><span>Audit chain</span><strong id="metric-audit">—</strong><small id="metric-audit-detail">Hash-linked events</small></article>
+    </section>
+
+    <section class="workspace-grid">
+      <article class="panel create-panel">
+        <div class="panel-heading">
+          <div><p class="kicker">Counter workflow</p><h2>Create a payment request</h2></div>
+          <span class="step-number">01</span>
+        </div>
+        <form id="payment-form">
+          <label>Merchant
+            <select id="payment-merchant" name="merchantId" required></select>
+          </label>
+          <div class="field-row">
+            <label>Amount (USD)
+              <input name="amountUsd" type="number" min="0.01" step="0.01" value="42.50" required>
+            </label>
+            <label>Approved asset
+              <input id="payment-asset" name="assetCode" readonly>
+            </label>
+          </div>
+          <div class="field-row">
+            <label>Store
+              <select id="payment-store" name="storeId" required></select>
+            </label>
+            <label>Register
+              <select id="payment-register" name="registerId" required></select>
+            </label>
+          </div>
+          <label class="check-row">
+            <input name="posAuthorized" type="checkbox" checked>
+            <span><strong>POS authorization received</strong><small>Age or medical eligibility, purchase limits, tax, inventory, and state tracking stay with the merchant and POS.</small></span>
+          </label>
+          <button class="primary" type="submit">Create one-time request</button>
+          <p class="privacy-note">No customer name, date of birth, medical ID, product, SKU, or readable order number is accepted here.</p>
+        </form>
+        <div id="checkout-result" class="checkout-result" hidden></div>
+      </article>
+
+      <article class="panel controls-panel">
+        <div class="panel-heading">
+          <div><p class="kicker">Merchant authority</p><h2>Counter controls</h2></div>
+          <span class="step-number">02</span>
+        </div>
+        <form id="controls-form">
+          <label class="switch-row">
+            <span><strong>Pause new requests</strong><small>Immediate merchant-controlled stop.</small></span>
+            <input id="control-paused" name="paused" type="checkbox" role="switch">
+          </label>
+          <div class="field-row">
+            <label>Per-transaction cap
+              <input id="control-per-tx" name="perTransaction" type="number" min="1" step="1" required>
+            </label>
+            <label>Daily cap
+              <input id="control-daily" name="daily" type="number" min="1" step="1" required>
+            </label>
+          </div>
+          <label>Required chain commitment
+            <select id="control-commitment" name="commitment">
+              <option value="FINALIZED">Finalized</option>
+              <option value="CONFIRMED">Confirmed</option>
+            </select>
+          </label>
+          <div class="control-readout"><span>Asset allowlist</span><strong id="control-asset">—</strong></div>
+          <div class="control-readout"><span>Destination wallet</span><code id="control-wallet">—</code></div>
+          <button class="secondary" type="submit">Save merchant controls</button>
+        </form>
+      </article>
+    </section>
+
+    <section class="panel lifecycle-panel">
+      <div class="panel-heading lifecycle-heading">
+        <div><p class="kicker">Requirement-by-requirement evidence</p><h2>Payment lifecycle</h2></div>
+        <button id="refresh" class="quiet" type="button">Refresh records</button>
+      </div>
+      <div class="state-legend" aria-label="Payment state sequence">
+        <span>Created</span><i></i><span>Screened</span><i></i><span>Submitted</span><i></i><span>Verified</span><i></i><span>Reconciled</span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Reference</th><th>Counter</th><th>Amount</th><th>Status</th><th>Evidence</th><th>Next controlled action</th></tr></thead>
+          <tbody id="intent-rows"></tbody>
+        </table>
+      </div>
+      <p id="intent-empty" class="empty">No payment requests yet. Create the first one above.</p>
+    </section>
+
+    <section class="records-grid">
+      <article class="panel">
+        <div class="panel-heading">
+          <div><p class="kicker">Qualified before connected</p><h2>Partner and merchant records</h2></div>
+          <span class="step-number">03</span>
+        </div>
+        <div id="qualification-records" class="qualification-records"></div>
+      </article>
+      <article class="panel audit-panel">
+        <div class="panel-heading">
+          <div><p class="kicker">Clear, tamper-evident history</p><h2>Audit trail</h2></div>
+          <span class="step-number">04</span>
+        </div>
+        <ol id="audit-events" class="audit-events"></ol>
+      </article>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>
