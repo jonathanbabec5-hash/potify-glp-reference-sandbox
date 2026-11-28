@@ -1,5 +1,13 @@
 # Green Light Pay · July Reference Sandbox
 
+## Find your way in
+
+| If you are… | Start here | Try this |
+| --- | --- | --- |
+| A payments developer | [Read the sandbox core](src/core.mjs) | Follow the historical fictional checkout. |
+| A tester | [Inspect the core test](test/core.test.mjs) | Trace the $42.50 fixture and repeated request. |
+| A merchant builder | [Visit the merchant sandbox](https://github.com/jonathanbabec5-hash/potify-glp-merchant-sandbox) | Compare the separate recovered counter experience. |
+
 [Complete repository directory tree](docs/DIRECTORY.md)
 
 ## A July checkout you can still put under a microscope
